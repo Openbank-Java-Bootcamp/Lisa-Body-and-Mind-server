@@ -3,6 +3,7 @@ package com.ironhack.trainingservice.service.impl;
 import com.ironhack.trainingservice.model.Repetition;
 import com.ironhack.trainingservice.repository.RepetitionRepository;
 import com.ironhack.trainingservice.service.interfaces.RepetitionServiceInterface;
+import com.ironhack.trainingservice.service.interfaces.SetServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,9 @@ public class RepetitionService implements RepetitionServiceInterface {
     @Autowired
     private RepetitionRepository repetitionRepository;
 
+    @Autowired
+    private SetServiceInterface setServiceInterface;
+
     public List<Repetition> findAll() {
         List<Repetition> repetitionList = repetitionRepository.findAll();
         if (repetitionList.isEmpty()) {
@@ -25,15 +29,24 @@ public class RepetitionService implements RepetitionServiceInterface {
         return repetitionList;
     }
 
+    public List<Repetition> findAllBySet(Integer setId) {
+        setServiceInterface.findById(setId);
+        List<Repetition> repetitionList = repetitionRepository.findAllBySetId(setId);
+        if (repetitionList.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No Repetitions with that Set ID found in the database");
+        }
+        return repetitionList;
+    }
+
     public Repetition findById(Integer id) {
-        return repetitionRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Repetition not found"));
+        return repetitionRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Repetition with that ID not found"));
     }
 
     public Repetition saveRepetition(Repetition repetition) {
         if (repetition.getId() != null) {
             Optional<Repetition> optionalRepetition = repetitionRepository.findById(repetition.getId());
             if (optionalRepetition.isPresent())
-                throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Repetition with id " + repetition.getId() + " already exist");
+                throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Repetition with ID " + repetition.getId() + " already exist");
         }
 
         try {
@@ -44,7 +57,7 @@ public class RepetitionService implements RepetitionServiceInterface {
     }
 
     public Repetition update(Integer id, Repetition repetition) {
-        Repetition repetitionFromDB = repetitionRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Repetition is not found"));
+        Repetition repetitionFromDB = repetitionRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Repetition with that ID is not found"));
         repetition.setId(repetitionFromDB.getId());
 
         try {
@@ -55,7 +68,7 @@ public class RepetitionService implements RepetitionServiceInterface {
     }
 
     public Repetition deleteRepetition(Integer id) {
-        Repetition repetitionFromDB = repetitionRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Repetition not found"));
+        Repetition repetitionFromDB = repetitionRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Repetition with that ID not found"));
         repetitionRepository.deleteById(id);
         return repetitionFromDB;
     }

@@ -1,5 +1,6 @@
 package com.ironhack.trainingservice.model;
 
+import com.ironhack.trainingservice.enums.WeightSystem;
 import lombok.*;
 
 import javax.persistence.*;
@@ -14,6 +15,9 @@ public class Repetition {
     private Integer id;
 
     private Integer weight;
+
+    @Enumerated(EnumType.STRING)
+    private WeightSystem weightSystem;
 
     @ManyToOne
     @JoinColumn(name = "set_id")

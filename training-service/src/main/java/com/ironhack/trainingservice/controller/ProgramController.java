@@ -1,9 +1,61 @@
 package com.ironhack.trainingservice.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.ironhack.trainingservice.enums.Creator;
+import com.ironhack.trainingservice.model.Program;
+import com.ironhack.trainingservice.service.interfaces.ProgramServiceInterface;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/programs")
 public class ProgramController {
+
+    @Autowired
+    private ProgramServiceInterface programServiceInterface;
+
+    @GetMapping("")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Program> getPrograms() {
+        return programServiceInterface.findAll();
+    }
+
+    @GetMapping("/user/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Program> getProgramsByUser(@PathVariable(name = "id") Integer userId) {
+        return programServiceInterface.findAllByUserId(userId);
+    }
+
+    @GetMapping("/creator/trainer")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Program> getProgramsByCreatorTrainer() {
+        return programServiceInterface.findAllByCreator(Creator.TRAINER);
+    }
+
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Program getProgramById(@PathVariable(name = "id") Integer programId) {
+        return programServiceInterface.findById(programId);
+    }
+
+    @PostMapping("/new")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Program saveProgram(@RequestBody @Valid Program program){
+        return programServiceInterface.saveProgram(program);
+    }
+
+    @PutMapping("/edit/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Program updateProgram(@PathVariable(name = "id") Integer programId, @RequestBody @Valid Program program){
+        return programServiceInterface.update(programId, program);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Program deleteProgram(@PathVariable(name = "id") Integer programId){
+        return programServiceInterface.deleteProgram(programId);
+    }
 }

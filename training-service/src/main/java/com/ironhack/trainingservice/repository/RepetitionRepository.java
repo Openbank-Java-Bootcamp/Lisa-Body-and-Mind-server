@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface RepetitionRepository extends JpaRepository<Repetition,Integer> {
-    List<Repetition> findAllBySet(Integer setId);
+    List<Repetition> findAllBySetId(Integer setId);
 }

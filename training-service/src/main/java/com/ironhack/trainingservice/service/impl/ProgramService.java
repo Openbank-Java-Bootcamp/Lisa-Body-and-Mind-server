@@ -1,5 +1,6 @@
 package com.ironhack.trainingservice.service.impl;
 
+import com.ironhack.trainingservice.enums.Creator;
 import com.ironhack.trainingservice.model.Program;
 import com.ironhack.trainingservice.repository.ProgramRepository;
 import com.ironhack.trainingservice.service.interfaces.ProgramServiceInterface;
@@ -25,15 +26,45 @@ public class ProgramService implements ProgramServiceInterface {
         return programList;
     }
 
+    public List<Program> findAllByUserId(Integer userId) {
+        //TODO validate user ID exists
+        List<Program> programList = programRepository.findAllByUserId(userId);
+        if (programList.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No Programs with that User ID found in the database");
+        }
+        return programList;
+    }
+
+    public List<Program> findAllByCreator(Creator creator) {
+        List<Program> programList = programRepository.findAllByCreator(creator);
+        if (programList.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No Programs with that Creator found in the database");
+        }
+        return programList;
+    }
+
+    public List<Program> findAllByUserIdAndCreator(Integer userId, Creator creator) {
+        //TODO validate user ID exists
+        List<Program> programList = programRepository.findAllByUserIdAndCreator(userId, creator);
+        if (programList.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No Programs with that User ID or Creator found in the database");
+        }
+        return programList;
+    }
+
     public Program findById(Integer id) {
-        return programRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Program not found"));
+        return programRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Program with that ID not found"));
+    }
+
+    public Program findByName(String programName) {
+        return programRepository.findByName(programName).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Program with that Name not found"));
     }
 
     public Program saveProgram(Program program) {
         if (program.getId() != null) {
             Optional<Program> optionalProgram = programRepository.findById(program.getId());
             if (optionalProgram.isPresent())
-                throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Program with id " + program.getId() + " already exist");
+                throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Program with ID " + program.getId() + " already exist");
         }
 
         try {
@@ -44,7 +75,7 @@ public class ProgramService implements ProgramServiceInterface {
     }
 
     public Program update(Integer id, Program program) {
-        Program programFromDB = programRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Program is not found"));
+        Program programFromDB = programRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Program with that ID is not found"));
         program.setId(programFromDB.getId());
 
         try {
@@ -55,7 +86,7 @@ public class ProgramService implements ProgramServiceInterface {
     }
 
     public Program deleteProgram(Integer id) {
-        Program programFromDB = programRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Program not found"));
+        Program programFromDB = programRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Program with that ID not found"));
         programRepository.deleteById(id);
         return programFromDB;
     }

@@ -9,7 +9,8 @@ import java.util.List;
 
 @Repository
 public interface ExerciseSessionRepository extends JpaRepository<ExerciseSession,Integer> {
+    List<ExerciseSession> findAllByUserId(Integer userId);
     List<ExerciseSession> findAllByUserIdAndProgramNameAndWorkoutName(Integer userId, String programName, String workoutName);
-    List<ExerciseSession> findAllByUserIdAndExerciseType(Integer userId, Integer exerciseTypeId);
+    List<ExerciseSession> findAllByUserIdAndExerciseTypeId(Integer userId, Integer exerciseTypeId);
     List<ExerciseSession> findAllByUserIdAndStartDate(Integer userId, Instant startDate);
 }

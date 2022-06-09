@@ -8,6 +8,6 @@ import java.util.List;
 
 @Repository
 public interface SetRepository extends JpaRepository<Set,Integer> {
-    List<Set> findAllByExercise(Integer exerciseId);
-    List<Set> findAllByExerciseSession(Integer exerciseSessionId);
+    List<Set> findAllByExerciseId(Integer exerciseId);
+    List<Set> findAllByExerciseSessionId(Integer exerciseSessionId);
 }

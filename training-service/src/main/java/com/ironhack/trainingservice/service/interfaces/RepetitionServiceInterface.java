@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface RepetitionServiceInterface {
     List<Repetition> findAll();
+    List<Repetition> findAllBySet(Integer setId);
     Repetition findById(Integer id);
     Repetition saveRepetition(Repetition repetition);
     Repetition update(Integer id, Repetition repetition);

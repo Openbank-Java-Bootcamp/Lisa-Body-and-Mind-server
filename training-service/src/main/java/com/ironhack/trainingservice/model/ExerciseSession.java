@@ -2,6 +2,7 @@ package com.ironhack.trainingservice.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.Instant;
@@ -18,9 +19,11 @@ public class ExerciseSession {
 
     private String programName;
     private String workoutName;
-    private Instant startDate;
     private Boolean isFinished;
     private Integer userId;
+
+    @CreationTimestamp
+    private Instant startDate;
 
     @OneToOne
     @JoinColumn(name = "exercise_type_id", referencedColumnName = "id")

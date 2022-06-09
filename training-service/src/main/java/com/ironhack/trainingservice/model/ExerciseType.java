@@ -20,7 +20,10 @@ public class ExerciseType {
     private String image;
     private String muscle;
     private String equipment;
+
+    @Column(length = 3000)
     private String instructions;
+
     private Integer userId;
 
     @Enumerated(value = EnumType.STRING)
@@ -32,9 +35,9 @@ public class ExerciseType {
     @Enumerated(EnumType.STRING)
     private Creator creator;
 
-    @OneToOne(mappedBy = "exerciseType")
-    private Exercise exercise;
+//    @OneToOne(mappedBy = "exerciseType")
+//    private Exercise exercise;
 
-    @OneToOne(mappedBy = "exerciseType")
-    private ExerciseSession exerciseSession;
+//    @OneToOne(mappedBy = "exerciseType")
+//    private ExerciseSession exerciseSession;
 }
