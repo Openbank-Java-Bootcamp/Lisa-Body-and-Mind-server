@@ -1,6 +1,7 @@
 package com.ironhack.trainingservice.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ironhack.trainingservice.enums.Creator;
 import lombok.*;
 
 import javax.persistence.*;
@@ -16,7 +17,9 @@ public class Program {
     private Integer id;
 
     private String name;
-    private String creator;
+
+    @Enumerated(EnumType.STRING)
+    private Creator creator;
 
     private Integer userId;
 

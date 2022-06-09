@@ -1,15 +1,17 @@
 package com.ironhack.trainingservice.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Entity
-public class TrainingSession {
+public class ExerciseSession {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Integer id;
@@ -18,15 +20,13 @@ public class TrainingSession {
     private String workoutName;
     private Instant startDate;
     private Boolean isFinished;
+    private Integer userId;
 
-//    @OneToMany(mappedBy = "")
-//    @JsonIgnore
-//    private List<Exercise> exercises;
+    @OneToOne
+    @JoinColumn(name = "exercise_type_id", referencedColumnName = "id")
+    private ExerciseType exerciseType;
 
-    @ManyToMany
-    @JoinTable(
-            name = "training_session_sets",
-            joinColumns = @JoinColumn(name = "training_session_id"),
-            inverseJoinColumns = @JoinColumn(name = "set_id"))
-    private java.util.Set<Set> sets;
+    @OneToMany(mappedBy = "exerciseSession")
+    @JsonIgnore
+    private List<Set> sets;
 }

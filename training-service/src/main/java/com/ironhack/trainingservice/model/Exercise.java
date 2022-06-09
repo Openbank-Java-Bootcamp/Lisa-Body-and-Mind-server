@@ -15,6 +15,8 @@ public class Exercise {
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Integer id;
 
+    private String exerciseName;
+
     @ManyToOne
     @JoinColumn(name = "workout_id")
     private Workout workout;
@@ -26,8 +28,4 @@ public class Exercise {
     @OneToOne
     @JoinColumn(name = "exercise_type_id", referencedColumnName = "id")
     private ExerciseType exerciseType;
-
-//    @ManyToOne
-//    @JoinColumn(name = "workout_id")
-//    private TrainingSession trainingSession;
 }

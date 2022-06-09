@@ -11,6 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Entity
+@Table(name = "sets")
 public class Set {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
@@ -26,6 +27,7 @@ public class Set {
     @JsonIgnore
     private List<Repetition> repetitions;
 
-    @ManyToMany(mappedBy = "sets")
-    private java.util.Set<TrainingSession> trainingSession;
+    @ManyToOne
+    @JoinColumn(name = "exercise_session_id")
+    private ExerciseSession exerciseSession;
 }
