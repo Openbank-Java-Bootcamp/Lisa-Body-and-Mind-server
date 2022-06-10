@@ -62,6 +62,9 @@ public class SetService implements SetServiceInterface {
                 throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Set with ID " + set.getId() + " already exist");
         }
 
+        exerciseServiceInterface.findById(set.getExercise().getId());
+        exerciseSessionServiceInterface.findById(set.getExerciseSession().getId());
+
         try {
             return setRepository.save(set);
         } catch (Exception e) {

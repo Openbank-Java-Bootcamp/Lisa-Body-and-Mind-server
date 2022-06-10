@@ -1,9 +1,11 @@
 package com.ironhack.trainingservice.service.impl;
 
+import com.ironhack.trainingservice.DTOs.ProgramDto;
 import com.ironhack.trainingservice.enums.Creator;
 import com.ironhack.trainingservice.model.Program;
 import com.ironhack.trainingservice.repository.ProgramRepository;
 import com.ironhack.trainingservice.service.interfaces.ProgramServiceInterface;
+import com.ironhack.trainingservice.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,9 @@ public class ProgramService implements ProgramServiceInterface {
 
     @Autowired
     private ProgramRepository programRepository;
+
+    @Autowired
+    private Utils utils;
 
     public List<Program> findAll() {
         List<Program> programList = programRepository.findAll();
@@ -60,12 +65,10 @@ public class ProgramService implements ProgramServiceInterface {
         return programRepository.findByName(programName).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Program with that Name not found"));
     }
 
-    public Program saveProgram(Program program) {
-        if (program.getId() != null) {
-            Optional<Program> optionalProgram = programRepository.findById(program.getId());
-            if (optionalProgram.isPresent())
-                throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Program with ID " + program.getId() + " already exist");
-        }
+    public Program saveProgram(ProgramDto dto) {
+        utils.validateProgramNameIsUnique(dto.getName(), dto.getUserId());
+
+        Program program = Program.fromDto(dto);
 
         try {
             return programRepository.save(program);

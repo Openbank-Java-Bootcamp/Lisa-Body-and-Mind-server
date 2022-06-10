@@ -53,6 +53,8 @@ public class WorkoutService implements WorkoutServiceInterface {
                 throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Workout with ID " + workout.getId() + " already exist");
         }
 
+        programServiceInterface.findById(workout.getProgram().getId());
+
         try {
             return workoutRepository.save(workout);
         } catch (Exception e) {

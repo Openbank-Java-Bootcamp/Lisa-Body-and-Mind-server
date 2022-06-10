@@ -1,5 +1,6 @@
 package com.ironhack.trainingservice.controller;
 
+import com.ironhack.trainingservice.DTOs.ProgramDto;
 import com.ironhack.trainingservice.enums.Creator;
 import com.ironhack.trainingservice.model.Program;
 import com.ironhack.trainingservice.service.interfaces.ProgramServiceInterface;
@@ -43,8 +44,8 @@ public class ProgramController {
 
     @PostMapping("/new")
     @ResponseStatus(HttpStatus.CREATED)
-    public Program saveProgram(@RequestBody @Valid Program program){
-        return programServiceInterface.saveProgram(program);
+    public Program saveProgram(@RequestBody @Valid ProgramDto dto){
+        return programServiceInterface.saveProgram(dto);
     }
 
     @PutMapping("/edit/{id}")

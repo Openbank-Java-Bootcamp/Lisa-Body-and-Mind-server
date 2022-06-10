@@ -1,5 +1,6 @@
 package com.ironhack.trainingservice.service.interfaces;
 
+import com.ironhack.trainingservice.DTOs.ProgramDto;
 import com.ironhack.trainingservice.enums.Creator;
 import com.ironhack.trainingservice.model.Program;
 
@@ -13,7 +14,7 @@ public interface ProgramServiceInterface {
     List<Program> findAllByUserIdAndCreator(Integer userId, Creator creator);
     Program findById(Integer id);
     Program findByName(String programName);
-    Program saveProgram(Program program);
+    Program saveProgram(ProgramDto dto);
     Program update(Integer id, Program program);
     Program deleteProgram(Integer id);
 }

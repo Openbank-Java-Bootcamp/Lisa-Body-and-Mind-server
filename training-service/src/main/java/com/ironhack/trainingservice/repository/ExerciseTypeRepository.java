@@ -17,5 +17,7 @@ public interface ExerciseTypeRepository extends JpaRepository<ExerciseType,Integ
     List<ExerciseType> findAllByUserIdAndCreator(Integer userId, Creator creator);
     List<ExerciseType> findAllByTypeAndDifficultyAndMuscleAndEquipment(Type type, Difficulty difficulty, String muscle, String equipment);
     Optional<ExerciseType> findByName(String exerciseTypeName);
-    Boolean existsExerciseTypeByName(String exerciseTypeName);
+//    Boolean existsExerciseTypeByName(String exerciseTypeName);
+    Boolean existsExerciseTypeByUserIdAndName(Integer userId, String exerciseTypeName);
+    Boolean existsExerciseTypeByCreatorAndName(Creator creator, String exerciseTypeName);
 }

@@ -1,5 +1,6 @@
 package com.ironhack.trainingservice.controller;
 
+import com.ironhack.trainingservice.DTOs.ExerciseTypeDto;
 import com.ironhack.trainingservice.enums.Creator;
 import com.ironhack.trainingservice.model.ExerciseType;
 import com.ironhack.trainingservice.service.interfaces.ExerciseTypeServiceInterface;
@@ -43,8 +44,8 @@ public class ExerciseTypeController {
 
     @PostMapping("/new")
     @ResponseStatus(HttpStatus.CREATED)
-    public ExerciseType saveExerciseType(@RequestBody @Valid ExerciseType exerciseType){
-        return exerciseTypeServiceInterface.saveExerciseType(exerciseType);
+    public ExerciseType saveExerciseType(@RequestBody @Valid ExerciseTypeDto dto){
+        return exerciseTypeServiceInterface.saveExerciseType(dto);
     }
 
     @PutMapping("/edit/{id}")

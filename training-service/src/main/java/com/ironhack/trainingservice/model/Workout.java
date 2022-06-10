@@ -1,6 +1,7 @@
 package com.ironhack.trainingservice.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ironhack.trainingservice.enums.Creator;
 import lombok.*;
 
 import javax.persistence.*;
@@ -16,6 +17,10 @@ public class Workout {
     private Integer id;
 
     private String name;
+    private Integer userId;
+
+    @Enumerated(EnumType.STRING)
+    private Creator creator;
 
     @ManyToOne
     @JoinColumn(name = "program_id")

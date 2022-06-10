@@ -1,11 +1,13 @@
 package com.ironhack.trainingservice.service.impl;
 
+import com.ironhack.trainingservice.DTOs.ExerciseTypeDto;
 import com.ironhack.trainingservice.enums.Creator;
 import com.ironhack.trainingservice.enums.Difficulty;
 import com.ironhack.trainingservice.enums.Type;
 import com.ironhack.trainingservice.model.ExerciseType;
 import com.ironhack.trainingservice.repository.ExerciseTypeRepository;
 import com.ironhack.trainingservice.service.interfaces.ExerciseTypeServiceInterface;
+import com.ironhack.trainingservice.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,9 @@ public class ExerciseTypeService implements ExerciseTypeServiceInterface {
 
     @Autowired
     private ExerciseTypeRepository exerciseTypeRepository;
+
+    @Autowired
+    private Utils utils;
 
     public List<ExerciseType> findAll() {
         List<ExerciseType> exerciseTypeList = exerciseTypeRepository.findAll();
@@ -73,12 +78,10 @@ public class ExerciseTypeService implements ExerciseTypeServiceInterface {
         return exerciseTypeRepository.findByName(exerciseTypeName).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Exercise Type with that Name not found"));
     }
 
-    public ExerciseType saveExerciseType(ExerciseType exerciseType) {
-        if (exerciseType.getId() != null) {
-            Optional<ExerciseType> optionalExerciseType = exerciseTypeRepository.findById(exerciseType.getId());
-            if (optionalExerciseType.isPresent())
-                throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Exercise Type with ID " + exerciseType.getId() + " already exist");
-        }
+    public ExerciseType saveExerciseType(ExerciseTypeDto dto) {
+        utils.validateExerciseTypeNameIsUnique(dto.getName(), dto.getUserId());
+
+        ExerciseType exerciseType = ExerciseType.fromDto(dto);
 
         try {
             return exerciseTypeRepository.save(exerciseType);

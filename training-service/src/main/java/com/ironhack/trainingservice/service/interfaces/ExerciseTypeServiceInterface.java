@@ -1,5 +1,6 @@
 package com.ironhack.trainingservice.service.interfaces;
 
+import com.ironhack.trainingservice.DTOs.ExerciseTypeDto;
 import com.ironhack.trainingservice.enums.Creator;
 import com.ironhack.trainingservice.enums.Difficulty;
 import com.ironhack.trainingservice.enums.Type;
@@ -16,7 +17,7 @@ public interface ExerciseTypeServiceInterface {
     List<ExerciseType> findAllByTypeAndDifficultyAndMuscleAndEquipment(Type type, Difficulty difficulty, String muscle, String equipment);
     ExerciseType findById(Integer id);
     ExerciseType findByName(String exerciseTypeName);
-    ExerciseType saveExerciseType(ExerciseType exerciseType);
+    ExerciseType saveExerciseType(ExerciseTypeDto dto);
     ExerciseType update(Integer id, ExerciseType exerciseType);
     ExerciseType deleteExerciseType(Integer id);
 }

@@ -49,6 +49,8 @@ public class RepetitionService implements RepetitionServiceInterface {
                 throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Repetition with ID " + repetition.getId() + " already exist");
         }
 
+        setServiceInterface.findById(repetition.getSet().getId());
+
         try {
             return repetitionRepository.save(repetition);
         } catch (Exception e) {

@@ -3,6 +3,7 @@ package com.ironhack.trainingservice.service.impl;
 import com.ironhack.trainingservice.model.Exercise;
 import com.ironhack.trainingservice.repository.ExerciseRepository;
 import com.ironhack.trainingservice.service.interfaces.ExerciseServiceInterface;
+import com.ironhack.trainingservice.service.interfaces.ExerciseTypeServiceInterface;
 import com.ironhack.trainingservice.service.interfaces.WorkoutServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,9 @@ public class ExerciseService implements ExerciseServiceInterface {
 
     @Autowired
     private WorkoutServiceInterface workoutServiceInterface;
+
+    @Autowired
+    private ExerciseTypeServiceInterface exerciseTypeServiceInterface;
 
     public List<Exercise> findAll() {
         List<Exercise> exerciseList = exerciseRepository.findAll();
@@ -52,6 +56,9 @@ public class ExerciseService implements ExerciseServiceInterface {
             if (optionalExercise.isPresent())
                 throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Exercise with ID " + exercise.getId() + " already exist");
         }
+
+        workoutServiceInterface.findById(exercise.getWorkout().getId());
+        exerciseTypeServiceInterface.findById(exercise.getExerciseType().getId());
 
         try {
             return exerciseRepository.save(exercise);

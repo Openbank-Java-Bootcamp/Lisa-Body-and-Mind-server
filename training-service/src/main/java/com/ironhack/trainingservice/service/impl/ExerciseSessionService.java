@@ -89,6 +89,9 @@ public class ExerciseSessionService implements ExerciseSessionServiceInterface {
             if (optionalExerciseSession.isPresent())
                 throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Exercise Session with ID " + exerciseSession.getId() + " already exist");
         }
+        exerciseTypeServiceInterface.findById(exerciseSession.getExerciseType().getId());
+        programServiceInterface.findByName(exerciseSession.getProgramName());
+        workoutServiceInterface.findByName(exerciseSession.getWorkoutName());
 
         try {
             return exerciseSessionRepository.save(exerciseSession);

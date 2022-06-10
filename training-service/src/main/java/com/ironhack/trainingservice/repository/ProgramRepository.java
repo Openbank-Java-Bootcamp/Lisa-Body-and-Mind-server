@@ -14,5 +14,7 @@ public interface ProgramRepository extends JpaRepository<Program,Integer> {
     List<Program> findAllByCreator(Creator creator);
     List<Program> findAllByUserIdAndCreator(Integer userId, Creator creator);
     Optional<Program> findByName(String programName);
-    Boolean existsProgramByName(String programName);
+//    Boolean existsProgramByName(String programName);
+    Boolean existsProgramByUserIdAndName(Integer userId, String programName);
+    Boolean existsProgramByCreatorAndName(Creator creator, String programName);
 }
