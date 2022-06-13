@@ -2,6 +2,7 @@ package com.ironhack.userservice.controller;
 
 import com.ironhack.userservice.DTOs.UserDto;
 import com.ironhack.userservice.model.User;
+import com.ironhack.userservice.repository.UserRepository;
 import com.ironhack.userservice.service.interfaces.UserServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,9 +15,11 @@ import java.util.List;
 @RequestMapping("/api/users")
 public class UserController {
 
-
     @Autowired
     private UserServiceInterface userServiceInterface;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @GetMapping("")
     @ResponseStatus(HttpStatus.OK)
@@ -32,8 +35,14 @@ public class UserController {
 
     @GetMapping("/email/{email}")
     @ResponseStatus(HttpStatus.OK)
-    public User getUserById(@PathVariable(name = "email") String userEmail) {
+    public User getUserByEmail(@PathVariable(name = "email") String userEmail) {
         return userServiceInterface.findByEmail(userEmail);
+    }
+
+    @GetMapping("/verify-email/{email}")
+    @ResponseStatus(HttpStatus.OK)
+    public Boolean verifyUserByEmail(@PathVariable(name = "email") String userEmail) {
+        return userRepository.existsUserByEmail(userEmail);
     }
 
     @PostMapping("/new")
