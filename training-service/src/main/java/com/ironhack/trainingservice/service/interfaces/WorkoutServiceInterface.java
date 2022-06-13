@@ -1,5 +1,6 @@
 package com.ironhack.trainingservice.service.interfaces;
 
+import com.ironhack.trainingservice.DTOs.WorkoutDto;
 import com.ironhack.trainingservice.model.Workout;
 
 import java.util.List;
@@ -9,7 +10,7 @@ public interface WorkoutServiceInterface {
     List<Workout> findAllByProgram(Integer programId);
     Workout findById(Integer id);
     Workout findByName(String workoutName);
-    Workout saveWorkout(Workout workout);
+    Workout saveWorkout(WorkoutDto dto);
     Workout update(Integer id, Workout workout);
     Workout deleteWorkout(Integer id);
 }
