@@ -61,6 +61,8 @@ public class ExerciseType {
         Difficulty difficulty = dto.getDifficulty() != null ? Difficulty.valueOf(dto.getDifficulty().toUpperCase())
                 : Difficulty.INTERMEDIATE;
 
+        String equipment = dto.getEquipment() != null ? dto.getEquipment() : "other";
+
         if (creator == Creator.USER && userId == null) throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
                 "Exercise Types created by users must contain User ID");
         if (creator == Creator.TRAINER && userId != null) userId = null;

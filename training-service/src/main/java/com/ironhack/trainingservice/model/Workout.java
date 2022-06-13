@@ -1,7 +1,6 @@
 package com.ironhack.trainingservice.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.ironhack.trainingservice.DTOs.ProgramDto;
 import com.ironhack.trainingservice.DTOs.WorkoutDto;
 import com.ironhack.trainingservice.enums.Creator;
 import lombok.*;

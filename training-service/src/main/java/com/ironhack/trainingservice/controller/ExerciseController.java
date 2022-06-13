@@ -1,5 +1,6 @@
 package com.ironhack.trainingservice.controller;
 
+import com.ironhack.trainingservice.DTOs.ExerciseDto;
 import com.ironhack.trainingservice.model.Exercise;
 import com.ironhack.trainingservice.service.interfaces.ExerciseServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +37,8 @@ public class ExerciseController {
 
     @PostMapping("/new")
     @ResponseStatus(HttpStatus.CREATED)
-    public Exercise saveExercise(@RequestBody @Valid Exercise exercise){
-        return exerciseServiceInterface.saveExercise(exercise);
+    public Exercise saveExercise(@RequestBody @Valid ExerciseDto dto){
+        return exerciseServiceInterface.saveExercise(dto);
     }
 
     @PutMapping("/edit/{id}")

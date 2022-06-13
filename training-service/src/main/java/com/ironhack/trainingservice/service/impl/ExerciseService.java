@@ -1,6 +1,9 @@
 package com.ironhack.trainingservice.service.impl;
 
+import com.ironhack.trainingservice.DTOs.ExerciseDto;
 import com.ironhack.trainingservice.model.Exercise;
+import com.ironhack.trainingservice.model.ExerciseType;
+import com.ironhack.trainingservice.model.Workout;
 import com.ironhack.trainingservice.repository.ExerciseRepository;
 import com.ironhack.trainingservice.service.interfaces.ExerciseServiceInterface;
 import com.ironhack.trainingservice.service.interfaces.ExerciseTypeServiceInterface;
@@ -50,15 +53,11 @@ public class ExerciseService implements ExerciseServiceInterface {
 //        return exerciseRepository.findByName(exerciseName).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Exercise with that Name not found"));
 //    }
 
-    public Exercise saveExercise(Exercise exercise) {
-        if (exercise.getId() != null) {
-            Optional<Exercise> optionalExercise = exerciseRepository.findById(exercise.getId());
-            if (optionalExercise.isPresent())
-                throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Exercise with ID " + exercise.getId() + " already exist");
-        }
+    public Exercise saveExercise(ExerciseDto dto) {
+        Workout workout = workoutServiceInterface.findById(dto.getWorkoutId());
+        ExerciseType exerciseType = exerciseTypeServiceInterface.findById(dto.getExerciseTypeId());
 
-        workoutServiceInterface.findById(exercise.getWorkout().getId());
-        exerciseTypeServiceInterface.findById(exercise.getExerciseType().getId());
+        Exercise exercise = Exercise.fromDto(workout, exerciseType);
 
         try {
             return exerciseRepository.save(exercise);
