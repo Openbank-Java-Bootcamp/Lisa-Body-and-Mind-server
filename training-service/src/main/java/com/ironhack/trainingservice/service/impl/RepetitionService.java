@@ -1,6 +1,8 @@
 package com.ironhack.trainingservice.service.impl;
 
+import com.ironhack.trainingservice.DTOs.RepetitionDto;
 import com.ironhack.trainingservice.model.Repetition;
+import com.ironhack.trainingservice.model.Set;
 import com.ironhack.trainingservice.repository.RepetitionRepository;
 import com.ironhack.trainingservice.service.interfaces.RepetitionServiceInterface;
 import com.ironhack.trainingservice.service.interfaces.SetServiceInterface;
@@ -42,14 +44,10 @@ public class RepetitionService implements RepetitionServiceInterface {
         return repetitionRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Repetition with that ID not found"));
     }
 
-    public Repetition saveRepetition(Repetition repetition) {
-        if (repetition.getId() != null) {
-            Optional<Repetition> optionalRepetition = repetitionRepository.findById(repetition.getId());
-            if (optionalRepetition.isPresent())
-                throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Repetition with ID " + repetition.getId() + " already exist");
-        }
+    public Repetition saveRepetition(RepetitionDto dto) {
+        Set set =setServiceInterface.findById(dto.getSetId());
 
-        setServiceInterface.findById(repetition.getSet().getId());
+        Repetition repetition = Repetition.fromDto(dto, set);
 
         try {
             return repetitionRepository.save(repetition);

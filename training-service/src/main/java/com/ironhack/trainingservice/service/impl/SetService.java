@@ -1,5 +1,8 @@
 package com.ironhack.trainingservice.service.impl;
 
+import com.ironhack.trainingservice.DTOs.SetDto;
+import com.ironhack.trainingservice.model.Exercise;
+import com.ironhack.trainingservice.model.ExerciseSession;
 import com.ironhack.trainingservice.model.Set;
 import com.ironhack.trainingservice.repository.SetRepository;
 import com.ironhack.trainingservice.service.interfaces.ExerciseServiceInterface;
@@ -10,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.Optional;
 
@@ -55,15 +59,14 @@ public class SetService implements SetServiceInterface {
         return setRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Set with that ID not found"));
     }
 
-    public Set saveSet(Set set) {
-        if (set.getId() != null) {
-            Optional<Set> optionalSet = setRepository.findById(set.getId());
-            if (optionalSet.isPresent())
-                throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Set with ID " + set.getId() + " already exist");
+    public Set saveSet(SetDto dto) throws ParseException {
+        Exercise exercise = exerciseServiceInterface.findById(dto.getExerciseId());
+        ExerciseSession exerciseSession = null;
+        if(dto.getExerciseSessionId() != null) {
+            exerciseSession = exerciseSessionServiceInterface.findById(dto.getExerciseSessionId());
         }
 
-        exerciseServiceInterface.findById(set.getExercise().getId());
-        exerciseSessionServiceInterface.findById(set.getExerciseSession().getId());
+        Set set = Set.fromDto(dto, exercise, exerciseSession);
 
         try {
             return setRepository.save(set);

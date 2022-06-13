@@ -1,5 +1,6 @@
 package com.ironhack.trainingservice.controller;
 
+import com.ironhack.trainingservice.DTOs.RepetitionDto;
 import com.ironhack.trainingservice.model.Repetition;
 import com.ironhack.trainingservice.service.interfaces.RepetitionServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +37,8 @@ public class RepetitionController {
 
     @PostMapping("/new")
     @ResponseStatus(HttpStatus.CREATED)
-    public Repetition saveRepetition(@RequestBody @Valid Repetition repetition){
-        return repetitionServiceInterface.saveRepetition(repetition);
+    public Repetition saveRepetition(@RequestBody @Valid RepetitionDto dto){
+        return repetitionServiceInterface.saveRepetition(dto);
     }
 
     @PutMapping("/edit/{id}")

@@ -1,5 +1,6 @@
 package com.ironhack.trainingservice.controller;
 
+import com.ironhack.trainingservice.DTOs.SetDto;
 import com.ironhack.trainingservice.model.Set;
 import com.ironhack.trainingservice.service.interfaces.SetServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -42,8 +44,8 @@ public class SetController {
 
     @PostMapping("/new")
     @ResponseStatus(HttpStatus.CREATED)
-    public Set saveSet(@RequestBody @Valid Set set){
-        return setServiceInterface.saveSet(set);
+    public Set saveSet(@RequestBody @Valid SetDto dto) throws ParseException {
+        return setServiceInterface.saveSet(dto);
     }
 
     @PutMapping("/edit/{id}")
