@@ -52,4 +52,10 @@ public class RepetitionController {
     public Repetition deleteRepetition(@PathVariable(name = "id") Integer repetitionId){
         return repetitionServiceInterface.deleteRepetition(repetitionId);
     }
+
+    @DeleteMapping("/delete/set/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Repetition> deleteRepetitionsBySetId(@PathVariable(name = "id") Integer setId){
+        return repetitionServiceInterface.deleteRepetitionsBySetId(setId);
+    }
 }

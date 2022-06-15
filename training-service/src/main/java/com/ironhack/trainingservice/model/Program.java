@@ -28,7 +28,7 @@ public class Program {
 
     private Integer userId;
 
-    @OneToMany(mappedBy = "program")
+    @OneToMany(mappedBy = "program", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Workout> workouts;
 

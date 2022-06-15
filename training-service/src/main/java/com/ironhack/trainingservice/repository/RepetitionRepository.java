@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface RepetitionRepository extends JpaRepository<Repetition,Integer> {
     List<Repetition> findAllBySetId(Integer setId);
+    void deleteAllBySetId(Integer setId);
 }

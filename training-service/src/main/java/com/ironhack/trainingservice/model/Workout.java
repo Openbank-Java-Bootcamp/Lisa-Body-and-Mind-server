@@ -29,7 +29,7 @@ public class Workout {
     @JoinColumn(name = "program_id")
     private Program program;
 
-    @OneToMany(mappedBy = "workout")
+    @OneToMany(mappedBy = "workout", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Exercise> exercises;
 

@@ -12,4 +12,5 @@ public interface RepetitionServiceInterface {
     Repetition saveRepetition(RepetitionDto dto);
     Repetition update(Integer id, RepetitionDto dto);
     Repetition deleteRepetition(Integer id);
+    List<Repetition> deleteRepetitionsBySetId(Integer setId);
 }

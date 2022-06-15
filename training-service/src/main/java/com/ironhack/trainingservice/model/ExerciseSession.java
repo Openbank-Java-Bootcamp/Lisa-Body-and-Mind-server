@@ -25,11 +25,11 @@ public class ExerciseSession {
     @CreationTimestamp
     private Instant startDate;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "exercise_type_id", referencedColumnName = "id")
     private ExerciseType exerciseType;
 
-    @OneToMany(mappedBy = "exerciseSession")
+    @OneToMany(mappedBy = "exerciseSession", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Set> sets;
 }

@@ -45,7 +45,7 @@ public class RepetitionService implements RepetitionServiceInterface {
     }
 
     public Repetition saveRepetition(RepetitionDto dto) {
-        Set set =setServiceInterface.findById(dto.getSetId());
+        Set set = setServiceInterface.findById(dto.getSetId());
 
         Repetition repetition = Repetition.fromDto(dto, set);
 
@@ -74,5 +74,17 @@ public class RepetitionService implements RepetitionServiceInterface {
         Repetition repetitionFromDB = repetitionRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Repetition with that ID not found"));
         repetitionRepository.deleteById(id);
         return repetitionFromDB;
+    }
+
+    public List<Repetition> deleteRepetitionsBySetId(Integer setId) {
+        setServiceInterface.findById(setId);
+        List<Repetition> repetitionsFromDB = repetitionRepository.findAllBySetId(setId);
+        if (repetitionsFromDB.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No Repetitions with that Set ID found in the database");
+        }
+
+        repetitionsFromDB.forEach(repetition -> repetitionRepository.deleteById(repetition.getId()));
+
+        return repetitionsFromDB;
     }
 }

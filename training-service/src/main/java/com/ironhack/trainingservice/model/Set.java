@@ -27,7 +27,7 @@ public class Set {
     @JoinColumn(name = "exercise_id")
     private Exercise exercise;
 
-    @OneToMany(mappedBy = "set")
+    @OneToMany(mappedBy = "set", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Repetition> repetitions;
 

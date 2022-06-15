@@ -24,7 +24,7 @@ public class Exercise {
     @JoinColumn(name = "workout_id")
     private Workout workout;
 
-    @OneToMany(mappedBy = "exercise")
+    @OneToMany(mappedBy = "exercise", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Set> sets;
 
