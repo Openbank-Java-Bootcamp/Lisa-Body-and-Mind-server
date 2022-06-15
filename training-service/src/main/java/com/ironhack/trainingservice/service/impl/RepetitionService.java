@@ -56,8 +56,11 @@ public class RepetitionService implements RepetitionServiceInterface {
         }
     }
 
-    public Repetition update(Integer id, Repetition repetition) {
+    public Repetition update(Integer id, RepetitionDto dto) {
         Repetition repetitionFromDB = repetitionRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Repetition with that ID is not found"));
+        Set set =setServiceInterface.findById(dto.getSetId());
+
+        Repetition repetition = Repetition.fromDto(dto, set);
         repetition.setId(repetitionFromDB.getId());
 
         try {

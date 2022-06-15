@@ -43,8 +43,8 @@ public class WorkoutController {
 
     @PutMapping("/edit/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Workout updateWorkout(@PathVariable(name = "id") Integer workoutId, @RequestBody @Valid Workout workout){
-        return workoutServiceInterface.update(workoutId, workout);
+    public Workout updateWorkout(@PathVariable(name = "id") Integer workoutId, @RequestBody @Valid WorkoutDto dto){
+        return workoutServiceInterface.update(workoutId, dto);
     }
 
     @DeleteMapping("/delete/{id}")

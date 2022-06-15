@@ -12,6 +12,6 @@ public interface SetServiceInterface {
     List<Set> findAllByExerciseSession(Integer exerciseSessionId);
     Set findById(Integer id);
     Set saveSet(SetDto dto) throws ParseException;
-    Set update(Integer id, Set set);
+    Set update(Integer id, SetDto dto) throws ParseException;
     Set deleteSet(Integer id);
 }

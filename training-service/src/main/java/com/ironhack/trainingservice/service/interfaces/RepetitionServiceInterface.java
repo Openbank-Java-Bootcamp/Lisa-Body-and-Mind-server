@@ -10,6 +10,6 @@ public interface RepetitionServiceInterface {
     List<Repetition> findAllBySet(Integer setId);
     Repetition findById(Integer id);
     Repetition saveRepetition(RepetitionDto dto);
-    Repetition update(Integer id, Repetition repetition);
+    Repetition update(Integer id, RepetitionDto dto);
     Repetition deleteRepetition(Integer id);
 }

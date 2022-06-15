@@ -59,8 +59,11 @@ public class WorkoutService implements WorkoutServiceInterface {
         }
     }
 
-    public Workout update(Integer id, Workout workout) {
+    public Workout update(Integer id, WorkoutDto dto) {
         Workout workoutFromDB = workoutRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Workout with that ID is not found"));
+        Program program = programServiceInterface.findById(dto.getProgramId());
+
+        Workout workout = Workout.fromDto(dto, program);
         workout.setId(workoutFromDB.getId());
 
         try {

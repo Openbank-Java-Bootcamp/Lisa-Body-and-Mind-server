@@ -11,6 +11,6 @@ public interface WorkoutServiceInterface {
     Workout findById(Integer id);
     Workout findByName(String workoutName);
     Workout saveWorkout(WorkoutDto dto);
-    Workout update(Integer id, Workout workout);
+    Workout update(Integer id, WorkoutDto dto);
     Workout deleteWorkout(Integer id);
 }

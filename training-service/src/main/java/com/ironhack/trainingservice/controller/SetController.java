@@ -50,8 +50,8 @@ public class SetController {
 
     @PutMapping("/edit/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Set updateSet(@PathVariable(name = "id") Integer setId, @RequestBody @Valid Set set){
-        return setServiceInterface.update(setId, set);
+    public Set updateSet(@PathVariable(name = "id") Integer setId, @RequestBody @Valid SetDto dto) throws ParseException {
+        return setServiceInterface.update(setId, dto);
     }
 
     @DeleteMapping("/delete/{id}")

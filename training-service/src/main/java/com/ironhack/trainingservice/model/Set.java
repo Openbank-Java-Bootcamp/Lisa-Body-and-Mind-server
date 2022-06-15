@@ -2,10 +2,7 @@ package com.ironhack.trainingservice.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ironhack.trainingservice.DTOs.SetDto;
-import com.ironhack.trainingservice.enums.Creator;
 import lombok.*;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.server.ResponseStatusException;
 
 import javax.persistence.*;
 import java.sql.Time;

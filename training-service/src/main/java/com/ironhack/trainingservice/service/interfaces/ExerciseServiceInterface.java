@@ -11,6 +11,6 @@ public interface ExerciseServiceInterface {
     Exercise findById(Integer id);
 //    Exercise findByName(String exerciseName);
     Exercise saveExercise(ExerciseDto dto);
-    Exercise update(Integer id, Exercise exercise);
+    Exercise update(Integer id, ExerciseDto dto);
     Exercise deleteExercise(Integer id);
 }

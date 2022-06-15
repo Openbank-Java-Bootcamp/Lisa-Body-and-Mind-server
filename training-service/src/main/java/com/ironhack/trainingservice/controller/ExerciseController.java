@@ -43,8 +43,8 @@ public class ExerciseController {
 
     @PutMapping("/edit/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Exercise updateExercise(@PathVariable(name = "id") Integer exerciseId,@RequestBody @Valid Exercise exercise){
-        return exerciseServiceInterface.update(exerciseId, exercise);
+    public Exercise updateExercise(@PathVariable(name = "id") Integer exerciseId, @RequestBody @Valid ExerciseDto dto){
+        return exerciseServiceInterface.update(exerciseId, dto);
     }
 
     @DeleteMapping("/delete/{id}")

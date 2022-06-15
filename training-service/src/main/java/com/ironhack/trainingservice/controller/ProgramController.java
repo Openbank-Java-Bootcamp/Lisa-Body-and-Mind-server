@@ -50,8 +50,8 @@ public class ProgramController {
 
     @PutMapping("/edit/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Program updateProgram(@PathVariable(name = "id") Integer programId, @RequestBody @Valid Program program){
-        return programServiceInterface.update(programId, program);
+    public Program updateProgram(@PathVariable(name = "id") Integer programId, @RequestBody @Valid ProgramDto dto){
+        return programServiceInterface.update(programId, dto);
     }
 
     @DeleteMapping("/delete/{id}")

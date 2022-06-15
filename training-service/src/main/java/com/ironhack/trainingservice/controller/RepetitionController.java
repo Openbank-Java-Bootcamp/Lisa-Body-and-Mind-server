@@ -43,8 +43,8 @@ public class RepetitionController {
 
     @PutMapping("/edit/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Repetition updateRepetition(@PathVariable(name = "id") Integer repetitionId, @RequestBody @Valid Repetition repetition){
-        return repetitionServiceInterface.update(repetitionId, repetition);
+    public Repetition updateRepetition(@PathVariable(name = "id") Integer repetitionId, @RequestBody @Valid RepetitionDto dto){
+        return repetitionServiceInterface.update(repetitionId, dto);
     }
 
     @DeleteMapping("/delete/{id}")

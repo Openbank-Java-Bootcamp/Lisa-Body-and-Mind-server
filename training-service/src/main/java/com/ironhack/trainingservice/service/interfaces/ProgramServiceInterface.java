@@ -15,6 +15,6 @@ public interface ProgramServiceInterface {
     Program findById(Integer id);
     Program findByName(String programName);
     Program saveProgram(ProgramDto dto);
-    Program update(Integer id, Program program);
+    Program update(Integer id, ProgramDto dto);
     Program deleteProgram(Integer id);
 }

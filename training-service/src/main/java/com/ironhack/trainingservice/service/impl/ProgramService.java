@@ -77,8 +77,11 @@ public class ProgramService implements ProgramServiceInterface {
         }
     }
 
-    public Program update(Integer id, Program program) {
+    public Program update(Integer id, ProgramDto dto) {
         Program programFromDB = programRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Program with that ID is not found"));
+        utils.validateProgramNameIsUnique(dto.getName(), dto.getUserId());
+
+        Program program = Program.fromDto(dto);
         program.setId(programFromDB.getId());
 
         try {

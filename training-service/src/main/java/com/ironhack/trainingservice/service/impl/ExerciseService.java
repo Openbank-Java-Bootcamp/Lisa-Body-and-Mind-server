@@ -66,8 +66,13 @@ public class ExerciseService implements ExerciseServiceInterface {
         }
     }
 
-    public Exercise update(Integer id, Exercise exercise) {
+    public Exercise update(Integer id, ExerciseDto dto) {
         Exercise exerciseFromDB = exerciseRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Exercise with that ID is not found"));
+        Workout workout = workoutServiceInterface.findById(dto.getWorkoutId());
+        ExerciseType exerciseType = exerciseTypeServiceInterface.findById(dto.getExerciseTypeId());
+
+        Exercise exercise = Exercise.fromDto(workout, exerciseType);
+
         exercise.setId(exerciseFromDB.getId());
 
         try {

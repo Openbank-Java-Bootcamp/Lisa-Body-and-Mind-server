@@ -75,8 +75,16 @@ public class SetService implements SetServiceInterface {
         }
     }
 
-    public Set update(Integer id, Set set) {
+    public Set update(Integer id, SetDto dto) throws ParseException {
         Set setFromDB = setRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Set with that ID is not found"));
+        Exercise exercise = exerciseServiceInterface.findById(dto.getExerciseId());
+        ExerciseSession exerciseSession = null;
+        if(dto.getExerciseSessionId() != null) {
+            exerciseSession = exerciseSessionServiceInterface.findById(dto.getExerciseSessionId());
+        }
+
+        Set set = Set.fromDto(dto, exercise, exerciseSession);
+
         set.setId(setFromDB.getId());
 
         try {
