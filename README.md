@@ -99,6 +99,8 @@ With a minimal and straightforward design, Body&Mind is the perfect place for yo
 
 ## Resources
 
+[Presentation slides](https://prezi.com/view/JRALWjNTbLOeUsSti07n/)
+
 [Trello](https://trello.com/b/xrk45zcW/bodymind)
 
 [Auth0 Api Authorization guide](https://auth0.com/docs/quickstart/backend/java-spring-security5/interactive)
