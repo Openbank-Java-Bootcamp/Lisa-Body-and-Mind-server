@@ -8,7 +8,7 @@ Our app creates a space for users to follow programs with different workouts and
 
 With a minimal and straightforward design, Body&Mind is the perfect place for you to ***take care of your mind by taking care of your body***.
 
-
+[Client Repository](https://github.com/Openbank-Java-Bootcamp/Lisa-Body-and-Mind-client)
 
 ## Set Up
 
